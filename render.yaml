@@ -1,0 +1,12 @@
+# One-click deploy on Render's free plan: https://render.com/deploy
+services:
+  - type: web
+    name: erp-mcp-gateway
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Demo

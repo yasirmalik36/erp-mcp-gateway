@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\ErpMcp.Domain\ErpMcp.Domain.csproj" />
+    <ProjectReference Include="..\ErpMcp.Protocol\ErpMcp.Protocol.csproj" />
+  </ItemGroup>
+</Project>

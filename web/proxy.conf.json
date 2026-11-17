@@ -1,0 +1,5 @@
+{
+  "/api": { "target": "http://localhost:5077", "secure": false },
+  "/mcp": { "target": "http://localhost:5077", "secure": false },
+  "/health": { "target": "http://localhost:5077", "secure": false }
+}

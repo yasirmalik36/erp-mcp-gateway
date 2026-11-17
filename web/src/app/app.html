@@ -1,0 +1,48 @@
+<header class="top">
+  <div class="brand">
+    <div class="logo" aria-hidden="true">⟁</div>
+    <div>
+      <h1>ERP MCP Gateway</h1>
+      <p>Controller Console · the human side of AI access to your ERP</p>
+    </div>
+  </div>
+  <div class="status">
+    @if (offline()) {
+      <span class="pill bad">Gateway unreachable</span>
+    } @else if (summary(); as s) {
+      <span class="pill" [class.good]="s.chainVerified" [class.bad]="!s.chainVerified">
+        <span class="dot"></span>{{ s.chainVerified ? 'Audit chain verified' : 'Audit chain BROKEN' }}
+      </span>
+      <span class="pill neutral">{{ s.pendingApprovals }} pending</span>
+    } @else {
+      <span class="pill neutral">Connecting…</span>
+    }
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  @for (t of tabs; track t.id) {
+    <button role="tab" [attr.aria-selected]="tab() === t.id" [class.active]="tab() === t.id" (click)="tab.set(t.id)">
+      {{ t.label }}
+      @if (t.id === 'approvals' && summary()?.pendingApprovals) {
+        <span class="badge">{{ summary()!.pendingApprovals }}</span>
+      }
+    </button>
+  }
+</nav>
+
+<main>
+  @switch (tab()) {
+    @case ('overview') { <app-overview [summary]="summary()" (go)="tab.set($event)" /> }
+    @case ('approvals') { <app-approvals (changed)="refresh()" /> }
+    @case ('audit') { <app-audit-trail /> }
+    @case ('playground') { <app-playground (called)="refresh()" /> }
+    @case ('connect') { <app-connect /> }
+  }
+</main>
+
+<footer>
+  Open-source demo with fictional data ·
+  <a href="https://github.com/yasirmalik36/erp-mcp-gateway" target="_blank" rel="noopener">GitHub</a> ·
+  Built by <a href="https://yasir-portfolio-omega.vercel.app" target="_blank" rel="noopener">Yasir Mehmood</a>
+</footer>

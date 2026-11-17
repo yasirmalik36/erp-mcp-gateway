@@ -1,0 +1,11 @@
+bin/
+obj/
+*.user
+.vs/
+.idea/
+TestResults/
+src/ErpMcp.Server/wwwroot/
+web/node_modules/
+web/dist/
+web/.angular/
+.DS_Store
