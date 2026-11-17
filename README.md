@@ -7,16 +7,30 @@
 A .NET 10 [Model Context Protocol](https://modelcontextprotocol.io) server plus an Angular 20 Controller Console.<br>
 Claude, Copilot, Cursor and other MCP clients can answer finance questions, while people stay in control of what changes.
 
-[![CI](https://github.com/yasirmalik36/erp-mcp-gateway/actions/workflows/ci.yml/badge.svg)](https://github.com/yasirmalik36/erp-mcp-gateway/actions/workflows/ci.yml)
-![.NET 10](https://img.shields.io/badge/.NET-10-512BD4?logo=dotnet)
-![Angular 20](https://img.shields.io/badge/Angular-20-DD0031?logo=angular)
-![MCP 2025-06-18](https://img.shields.io/badge/MCP-2025--06--18-22D3EE)
-![Runtime deps](https://img.shields.io/badge/runtime%20dependencies-0-success)
-![License: MIT](https://img.shields.io/badge/license-MIT-blue)
+[![CI](https://img.shields.io/github/actions/workflow/status/yasirmalik36/erp-mcp-gateway/ci.yml?branch=main&style=for-the-badge&label=CI&logo=githubactions&logoColor=white)](https://github.com/yasirmalik36/erp-mcp-gateway/actions/workflows/ci.yml)
+![.NET 10](https://img.shields.io/badge/.NET-10-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
+![Angular 20](https://img.shields.io/badge/Angular-20-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+![MCP](https://img.shields.io/badge/MCP-2025--06--18-0891B2?style=for-the-badge)
+<br>
+![Runtime dependencies](https://img.shields.io/badge/runtime%20deps-0-16A34A?style=for-the-badge)
+![Themes](https://img.shields.io/badge/themes-light%20%2B%20dark-7C3AED?style=for-the-badge)
+![Docker](https://img.shields.io/badge/Docker-ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![License: MIT](https://img.shields.io/badge/license-MIT-0F172A?style=for-the-badge)
 
-<img src="docs/demo.gif" alt="Demo: an agent queries overdue invoices, is blocked from drafting as a Viewer, drafts a write-off as an Accountant, a human approves it, and the audit trail records every step" width="860">
+<img src="docs/demo.gif" alt="Demo: the console switches between light and dark themes; an agent queries overdue invoices, is blocked from drafting as a Viewer, drafts a write-off as an Accountant, a human approves it, and the audit trail records every step" width="860">
 
 </div>
+
+---
+
+## Light & dark themes
+
+The Controller Console ships with both themes. Use the **☀️ Light / 🌙 Dark** switch in the header, or open it with `?theme=light` or `?theme=dark`. Your choice is remembered, and the first visit follows your operating system's setting.
+
+<p align="center">
+  <img src="docs/overview-light.png" width="49%" alt="Controller Console overview in the light theme">
+  <img src="docs/overview-dark.png" width="49%" alt="Controller Console overview in the dark theme">
+</p>
 
 ---
 
@@ -69,7 +83,7 @@ src/
   ErpMcp.Protocol   Dependency-free MCP server: initialize, ping, tools/list, tools/call
   ErpMcp.Gateway    Tools, RBAC, masking, audit chain, rate limiter, input validation
   ErpMcp.Server     ASP.NET Core host: stdio + HTTP transports, console API, static console
-web/                Angular 20 Controller Console (standalone components, Signals, zoneless)
+web/                Angular 20 Controller Console (standalone components, Signals, zoneless, light + dark themes)
 tests/              xUnit tests for protocol, policy, accounting rules and the audit chain
 ```
 
@@ -146,11 +160,13 @@ npm run build:server   # build the console into the server's wwwroot
 
 ## Screenshots
 
-| Overview | Approvals |
+The image matches your GitHub theme; switch GitHub between light and dark to see both.
+
+| Approvals inbox | Audit trail |
 |---|---|
-| ![Overview](docs/overview.png) | ![Approvals](docs/approvals.png) |
-| **Agent playground** | **Audit trail** |
-| ![Playground](docs/playground.png) | ![Audit trail](docs/audit.png) |
+| <picture><source media="(prefers-color-scheme: dark)" srcset="docs/approvals-dark.png"><img src="docs/approvals-light.png" alt="Approvals inbox"></picture> | <picture><source media="(prefers-color-scheme: dark)" srcset="docs/audit-dark.png"><img src="docs/audit-light.png" alt="Audit trail with hash-chain verification"></picture> |
+| **Agent playground** | **Overview** |
+| <picture><source media="(prefers-color-scheme: dark)" srcset="docs/playground-dark.png"><img src="docs/playground-light.png" alt="Agent playground"></picture> | <picture><source media="(prefers-color-scheme: dark)" srcset="docs/overview-dark.png"><img src="docs/overview-light.png" alt="Overview dashboard"></picture> |
 
 ## Design notes
 

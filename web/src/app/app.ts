@@ -19,6 +19,7 @@ export class App {
   protected readonly tab = signal<Tab>('overview');
   protected readonly summary = signal<Summary | null>(null);
   protected readonly offline = signal(false);
+  protected readonly theme = signal<'light' | 'dark'>(App.initialTheme());
   protected readonly tabs: { id: Tab; label: string }[] = [
     { id: 'overview', label: 'Overview' },
     { id: 'approvals', label: 'Approvals' },
@@ -28,10 +29,33 @@ export class App {
   ];
 
   constructor() {
+    this.applyTheme(this.theme());
     this.refresh();
     // Live console: poll the gateway so agent activity appears without reloading.
     const timer = setInterval(() => this.refresh(), 4000);
     inject(DestroyRef).onDestroy(() => clearInterval(timer));
+  }
+
+  /** ?theme=light|dark in the URL wins, then the saved choice, then the OS setting. */
+  private static initialTheme(): 'light' | 'dark' {
+    const fromUrl = new URLSearchParams(location.search).get('theme');
+    if (fromUrl === 'light' || fromUrl === 'dark') return fromUrl;
+    try {
+      const saved = localStorage.getItem('erp-mcp-theme');
+      if (saved === 'light' || saved === 'dark') return saved;
+    } catch { /* storage unavailable */ }
+    return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  private applyTheme(t: 'light' | 'dark'): void {
+    document.documentElement.dataset['theme'] = t;
+  }
+
+  protected toggleTheme(): void {
+    const next = this.theme() === 'light' ? 'dark' : 'light';
+    this.theme.set(next);
+    this.applyTheme(next);
+    try { localStorage.setItem('erp-mcp-theme', next); } catch { /* ignore */ }
   }
 
   refresh(): void {

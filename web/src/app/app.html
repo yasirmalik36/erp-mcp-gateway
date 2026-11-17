@@ -7,6 +7,9 @@
     </div>
   </div>
   <div class="status">
+    <button class="theme-toggle" (click)="toggleTheme()" [attr.aria-label]="'Switch to ' + (theme() === 'light' ? 'dark' : 'light') + ' theme'">
+      {{ theme() === 'light' ? '🌙 Dark' : '☀️ Light' }}
+    </button>
     @if (offline()) {
       <span class="pill bad">Gateway unreachable</span>
     } @else if (summary(); as s) {
