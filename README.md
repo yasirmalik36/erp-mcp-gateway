@@ -89,19 +89,15 @@ There is deliberately **no MCP tool that posts to the ledger**. Approval only ex
 
 ## Try it
 
-### 1. Online demo (no install)
-Open the live console, go to **Agent playground**, and run the scenarios: overdue invoices, masked bank data, privilege escalation, a write-off draft and prompt injection. Then approve the draft and watch the audit trail.
-
-> Runs on a free instance that sleeps when idle; the first load can take ~30–60 s.
-
-### 2. Run locally with Docker
+### 1. Run the full demo with Docker (one command)
 ```bash
 docker build -t erp-mcp-gateway .
 docker run -p 8080:8080 erp-mcp-gateway
-# open http://localhost:8080
+# open http://localhost:8080, then go to Agent playground and run the scenarios:
+# overdue invoices, masked bank data, privilege escalation, a write-off draft, prompt injection
 ```
 
-### 3. Connect Claude Desktop, Cursor or VS Code (stdio)
+### 2. Connect Claude Desktop, Cursor or VS Code (stdio)
 ```bash
 git clone https://github.com/yasirmalik36/erp-mcp-gateway && cd erp-mcp-gateway
 dotnet build -c Release
@@ -128,7 +124,7 @@ Then ask your assistant:
 - *"Draft a journal entry to write off INV-1007 against bad debt expense."*
 - *"Show me Acme's bank details."* (try it as `Viewer`, then as `Controller`)
 
-### 4. Remote HTTP
+### 3. Remote HTTP
 ```bash
 curl -X POST http://localhost:8080/mcp \
   -H "Authorization: Bearer demo-viewer-token" -H "Content-Type: application/json" \
