@@ -8,13 +8,22 @@ import { Component, signal } from '@angular/core';
       <p class="muted">Run the gateway locally over stdio. The role you set is the role the agent gets.</p>
 
       <h3>1 · Run with Docker or .NET</h3>
-      <pre class="code">{{ run }}</pre>
+      <div class="snippet">
+        <pre class="code">{{ run }}</pre>
+        <button type="button" class="copy" aria-label="Copy run command" (click)="copy('run', run)">{{ copied() === 'run' ? 'Copied' : 'Copy' }}</button>
+      </div>
 
       <h3>2 · Claude Desktop / Cursor (<span class="mono">mcpServers</span> config)</h3>
-      <pre class="code">{{ desktop }}</pre>
+      <div class="snippet">
+        <pre class="code">{{ desktop }}</pre>
+        <button type="button" class="copy" aria-label="Copy Claude Desktop config" (click)="copy('desktop', desktop)">{{ copied() === 'desktop' ? 'Copied' : 'Copy' }}</button>
+      </div>
 
       <h3>3 · Or inspect it with the official MCP Inspector</h3>
-      <pre class="code">{{ inspector }}</pre>
+      <div class="snippet">
+        <pre class="code">{{ inspector }}</pre>
+        <button type="button" class="copy" aria-label="Copy MCP Inspector command" (click)="copy('inspector', inspector)">{{ copied() === 'inspector' ? 'Copied' : 'Copy' }}</button>
+      </div>
 
       <h3>Try asking</h3>
       <ul class="prompts">
@@ -29,8 +38,27 @@ import { Component, signal } from '@angular/core';
       </p>
     </section>
   `,
+  styles: `
+    .snippet { position: relative; }
+    .snippet pre.code { padding-right: 84px; }
+    .snippet .copy { position: absolute; top: 8px; right: 8px; padding: 4px 10px; font-size: 12px; border-radius: 8px; }
+  `,
 })
 export class Connect {
+  protected readonly copied = signal<string | null>(null);
+  private timer?: ReturnType<typeof setTimeout>;
+
+  protected async copy(key: string, text: string): Promise<void> {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      return;
+    }
+    this.copied.set(key);
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => this.copied.set(null), 1500);
+  }
+
   protected readonly origin = signal(typeof location !== 'undefined' ? location.origin : '');
   protected readonly run =
 `git clone https://github.com/yasirmalik36/erp-mcp-gateway
