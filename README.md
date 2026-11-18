@@ -181,6 +181,10 @@ The image matches your GitHub theme; switch GitHub between light and dark to see
 - Persistent audit store with periodic chain anchoring
 - Approval notifications (email / Teams) and four-eyes thresholds by amount
 
+## Contributing
+
+Issues and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md), or pick a [good first issue](https://github.com/yasirmalik36/erp-mcp-gateway/labels/good%20first%20issue).
+
 ---
 
 All companies, IBANs and invoices are fictional. Built by **[Yasir Mehmood](https://yasir-portfolio-omega.vercel.app)** · [LinkedIn](https://www.linkedin.com/in/yasir-mehmood-53549a1b3) · MIT License.
